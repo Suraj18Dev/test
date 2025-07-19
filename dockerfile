@@ -1,0 +1,10 @@
+FROM node:20-slim
+WORKDIR /app
+COPY  package*.json ./
+RUN npm install --production
+COPY . .
+ENV NODE_ENV=production
+EXPOSE 3000
+RUN useradd --user-group --create-home --shell /bin/false appuser
+USER appuser
+CMD [ "node" , "server.js" ]
